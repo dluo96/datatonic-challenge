@@ -12,11 +12,8 @@ numpy = "*"
 scipy = "*"
 sklearn = "*"
 matplotlib = "*"
-<<<<<<< Updated upstream
 iso639 = "*"
-=======
 seaborn = "*"
->>>>>>> Stashed changes
 
 [requires]
 python_version = "3.7"
