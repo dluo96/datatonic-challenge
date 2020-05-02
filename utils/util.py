@@ -28,11 +28,10 @@ def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=Fals
 	result = pd.DataFrame(result_dict)
 	if save:
 		if not save_dir:
-			os.chdir('..')
 			cwd = os.getcwd()
 			if id_maps:
-			  save_dir = cwd + '/data/preprocessed/' + column_name + '_' + id_maps[column_name][str(ids)] +'.pkl'
+			  save_dir = cwd + '/data/pre-processed/' + column_name + '_' + id_maps[column_name][str(ids)] +'.pkl'
 			else:
-			  save_dir = cwd + '/data/preprocessed/' + column_name + '_' + column_name + '_' + str(ids) +'.pkl'
+			  save_dir = cwd + '/data/pre-processed/' + column_name + '_' + column_name + '_' + str(ids) +'.pkl'
 		result.to_pickle(save_dir)
 	return result
