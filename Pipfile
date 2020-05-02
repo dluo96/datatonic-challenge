@@ -12,7 +12,6 @@ numpy = "*"
 scipy = "*"
 sklearn = "*"
 matplotlib = "*"
-iso639 = "*"
 
 [requires]
 python_version = "3.7"
