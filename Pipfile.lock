@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< Updated upstream
             "sha256": "3fd404a0d8253fba6d24708a8c1a62ec11aad4618d2b03443366dd5d05974a4f"
+=======
+            "sha256": "c44cc6225e71ad8ea57ba5f1f298204f0b671bf94badcb5ebd5bb3acd9b674dd"
+>>>>>>> Stashed changes
         },
         "pipfile-spec": 6,
         "requires": {
@@ -21,7 +25,7 @@
                 "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
                 "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
             ],
-            "markers": "platform_system == 'Darwin'",
+            "markers": "sys_platform == 'darwin'",
             "version": "==0.1.0"
         },
         "attrs": {
@@ -520,6 +524,14 @@
             ],
             "index": "pypi",
             "version": "==1.4.1"
+        },
+        "seaborn": {
+            "hashes": [
+                "sha256:2d1a0c9d6bd1bc3cadb0364b8f06540f51322a670cf8438d0fde1c1c7317adc0",
+                "sha256:c901ce494541fb4714cfa7db79d0232dc3f4c4dfd3f273bacf17816084df5b53"
+            ],
+            "index": "pypi",
+            "version": "==0.10.1"
         },
         "send2trash": {
             "hashes": [
