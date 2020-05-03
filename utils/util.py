@@ -67,7 +67,8 @@ def convert_to_dict(df, subset, save=False, save_dir=''):
 				A new dataframe with the modified columns.
 
 		"""
-		data = df.copy()
+		data = df.copy().reset_index(drop=True)
+
 		
 		for column in subset:                                   # Iterate through columns that need to be converted to dict
 				for i in range(len(df)):                        # Iterating through every movie
