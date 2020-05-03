@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=False, save_dir=''):
-	"""Example function with PEP 484 type annotations.
+	"""Retrieve different categories from a specific column.
 
 	Args:
 		df: the dataframe to be queried.
@@ -30,8 +30,24 @@ def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=Fals
 		if not save_dir:
 			cwd = os.getcwd()
 			if id_maps:
-			  save_dir = cwd + '/data/pre-processed/' + column_name + '_' + id_maps[column_name][str(ids)] +'.pkl'
+			  save_dir = column_name + '_' + id_maps[column_name][str(ids)] +'.pkl'
 			else:
-			  save_dir = cwd + '/data/pre-processed/' + column_name + '_' + column_name + '_' + str(ids) +'.pkl'
+			  save_dir = column_name + '_' + column_name + '_' + str(ids) +'.pkl'
 		result.to_pickle(save_dir)
 	return result
+
+def get_path_to_data_dir():
+	"""Look for the path to the data directory and return it for use i.e. /path/to/repo/data/
+
+	Returns:
+		The path to the daat directory
+	"""
+	cwd = os.getcwd()
+	dir_list = cwd.split(os.sep)
+	cut_len = len(dir_list) - dir_list.index('datatonic-challenge') - 1
+	for _ in range(cut_len):
+		dir_list.pop()
+	dir_list.append('data')
+	dir_list.append('')
+	
+	return '/' + os.path.join(*dir_list)
