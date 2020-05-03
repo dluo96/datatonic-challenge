@@ -56,7 +56,7 @@ def list_to_dict(dict_list):
         
         return new_dict
 
-def convert_to_dict(df, subset):
+def convert_to_dict(df, subset, save=False, save_dir=''):
         """Take an input dataframe and modify columns that store a list of dictionaries (e.g. genres, keywords, and cast)
 
         Args:
@@ -75,11 +75,11 @@ def convert_to_dict(df, subset):
                     list_of_dict = json.loads(str_entry)        # Convert string into a list of dictionaries
                     df[column][i] = list_to_dict(list_of_dict)  # Convert list of dictionaries to one dictionary
 
-        df.to_pickle(main_dir + data_dir + "pre-processed/movie_details_neat.pkl")
-    
+        if save:
+        	df.to_pickle(savedir + "movie_details_neat.pkl")
         return df
 
-def make_id_maps(df, subset):
+def make_id_maps(df, subset, save=False, save_dir=''):
         """Construct dictionaries that map id to name.
         
         """
@@ -103,7 +103,6 @@ def make_id_maps(df, subset):
 
         id_list = []
         name_list = []
-        new_dict
         for i in range(len(new_dict[keys[0]])):
             if column == 'production_companies': #id and name are rversed but only for production companies
                 id_list += new_dict[keys[1]][i]
@@ -115,7 +114,8 @@ def make_id_maps(df, subset):
         id_maps[column] = id_map_per_column
 
         # Save file as json
-        with open(cwd+data_dir+'pre-processed/id_maps.json', 'w') as fp:
+        if save:
+        	with open(save_dir + 'id_maps.json', 'w') as fp:
                 json.dump(id_maps, fp)
     
         return id_maps
