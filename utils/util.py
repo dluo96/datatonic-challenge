@@ -1,5 +1,5 @@
 # File with utility functions
-
+import json
 import pandas as pd
 import os
 
@@ -76,14 +76,13 @@ def convert_to_dict(df, subset, save=False, save_dir=''):
 					df[column][i] = list_to_dict(list_of_dict)  # Convert list of dictionaries to one dictionary
 
 		if save:
-			df.to_pickle(savedir + "movie_details_neat.pkl")
+			df.to_pickle(save_dir + "movie_details_neat.pkl")
 		return df
 
 def make_id_maps(df, subset, save=False, save_dir=''):
 		"""Construct dictionaries that map id to name.
 		
 		"""
-		data_copy = df.copy()
 		
 		id_maps = {'genres'               : {},
 				   'keywords'             : {}, 
@@ -92,26 +91,26 @@ def make_id_maps(df, subset, save=False, save_dir=''):
 				   'spoken_languages'     : {}}
 
 		for column in subset: 
-				dict_list = []
-				for i in range(len(data_copy)):
-					dict_list.append(data_copy[column][i]) # Add all dictionaries into one list
+			dict_list = []
+			for i in range(len(df)):
+				dict_list.append(df[column][i]) # Add all dictionaries into one list
 
-		# Create a new dictionary from the list, this only has as many entries as there are unique values
-		new_dict = list_to_dict(dict_list)
-		keys = list(new_dict)
-		assert len(keys) == 2 #only id and name corresponding to the id
+			# Create a new dictionary from the list, this only has as many entries as there are unique values
+			new_dict = list_to_dict(dict_list)
+			keys = list(new_dict)
+			assert len(keys) == 2 #only id and name corresponding to the id
 
-		id_list = []
-		name_list = []
-		for i in range(len(new_dict[keys[0]])):
-			if column == 'production_companies': #id and name are rversed but only for production companies
-				id_list += new_dict[keys[1]][i]
-				name_list += new_dict[keys[0]][i]
-			else:    
-				id_list += new_dict[keys[0]][i]
-				name_list += new_dict[keys[1]][i]
-		id_map_per_column = dict(zip(id_list, name_list))
-		id_maps[column] = id_map_per_column
+			id_list = []
+			name_list = []
+			for i in range(len(new_dict[keys[0]])):
+				if column == 'production_companies': #id and name are rversed but only for production companies
+					id_list += new_dict[keys[1]][i]
+					name_list += new_dict[keys[0]][i]
+				else:    
+					id_list += new_dict[keys[0]][i]
+					name_list += new_dict[keys[1]][i]
+			id_map_per_column = dict(zip(id_list, name_list))
+			id_maps[column] = id_map_per_column
 
 		# Save file as json
 		if save:
@@ -119,6 +118,46 @@ def make_id_maps(df, subset, save=False, save_dir=''):
 				json.dump(id_maps, fp)
 	
 		return id_maps
+
+def make_id_maps_reverse(df, subset, save=False, save_dir=''): 
+	"""Construct dictionaries that map name to id.
+		
+	"""
+
+	id_maps = {'genres'               : {},
+			   'keywords'             : {}, 
+			   'production_companies' : {},
+			   'production_countries' : {},
+			   'spoken_languages'     : {}}
+
+	for column in subset: 
+		dict_list = []
+		for i in range(len(df)):
+			dict_list.append(df[column][i]) #add all dictionaries into one list
+		#create a new dictionary from the list, this only has as many entries as there are unique values
+		new_dict = list_to_dict(dict_list)
+		keys = list(new_dict)
+		assert len(keys) == 2 #only id and name corresponding to the id
+
+		id_list = []
+		name_list = []
+		new_dict
+		for i in range(len(new_dict[keys[0]])):
+			if column == 'production_companies': #id and name are rversed but only for production companies
+				id_list += new_dict[keys[1]][i]
+				name_list += new_dict[keys[0]][i]
+			else:    
+				id_list += new_dict[keys[0]][i]
+				name_list += new_dict[keys[1]][i]
+		id_map_per_column = dict(zip(name_list, id_list))
+		id_maps[column] = id_map_per_column
+
+	#save the file as json
+	if save:
+		with open(save_dir + 'id_maps_reverse.json', 'w') as fp:
+			json.dump(id_maps, fp)
+	
+	return id_maps
 
 def get_path_to_data_dir():
 	"""Look for the path to the data directory and return it for use i.e. /path/to/repo/data/
