@@ -14,6 +14,7 @@ sklearn = "*"
 matplotlib = "*"
 iso639 = "*"
 seaborn = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"
