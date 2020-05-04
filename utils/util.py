@@ -67,7 +67,8 @@ def convert_to_dict(df, subset, save=False, save_dir=''):
 				A new dataframe with the modified columns.
 
 		"""
-		data = df.copy()
+		data = df.copy().reset_index(drop=True)
+
 		
 		for column in subset:                                   # Iterate through columns that need to be converted to dict
 				for i in range(len(df)):                        # Iterating through every movie
@@ -171,6 +172,21 @@ def get_path_to_data_dir():
 	for _ in range(cut_len):
 		dir_list.pop()
 	dir_list.append('data')
+	dir_list.append('')
+	
+	return '/' + os.path.join(*dir_list)
+def get_path_to_plot_dir():
+	"""Look for the path to the data directory and return it for use i.e. /path/to/repo/plot/
+
+	Returns:
+		The path to the plot directory
+	"""
+	cwd = os.getcwd()
+	dir_list = cwd.split(os.sep)
+	cut_len = len(dir_list) - dir_list.index('datatonic-challenge') - 1
+	for _ in range(cut_len):
+		dir_list.pop()
+	dir_list.append('plots')
 	dir_list.append('')
 	
 	return '/' + os.path.join(*dir_list)
