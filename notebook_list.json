@@ -1,0 +1,14 @@
+{
+	"pre-processing": [
+		"strings_to_dicts"
+	],
+	"data-visualisation": [
+		"Category_plots",
+		"production_company_analysis",
+		"some_aggregation_and_trends"
+	],
+	"feature-engineering": [
+		"adjusting-revenue-variable",
+		"one_hot_encoding"
+	]
+}

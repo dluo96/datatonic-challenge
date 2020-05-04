@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from tqdm import tqdm
 
-def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=False, save_dir=''):
+def retrieve_category(dicts, column_name, ids, id_key_name, id_maps=None, save=False, save_dir=''):
 	"""Retrieve different categories from a specific column.
 
 	Args:
@@ -20,7 +20,6 @@ def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=Fals
 		The resulting DataFrame from the query.
 
 	"""
-	dicts = df.to_dict('records')
 	result_dict = []
 	for row in dicts:
 		if id_key_name in row[column_name].keys():
@@ -29,7 +28,6 @@ def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=Fals
 	result = pd.DataFrame(result_dict)
 	if save:
 		if not save_dir:
-			cwd = os.getcwd()
 			if id_maps:
 			  save_dir = column_name + '_' + id_maps[column_name][str(ids)] +'.pkl'
 			else:
@@ -214,11 +212,12 @@ def get_averages_for_columns(df, id_maps, id_key_name, column_name, save=False, 
         for col in cols_with_num_vals:
                 prod_comp_avgs[col] = []
 
+        dicts = df.to_dict('records')
         for ids in tqdm(id_maps[column_name].keys()):
         # Retrieve rows for a certain production companies
                 if ids.isdigit():
                     ids = int(ids)
-                row = retrieve_category(df=df, column_name=column_name, ids=ids, id_key_name=id_key_name, id_maps=id_maps, save=False)
+                row = retrieve_category(dicts=dicts, column_name=column_name, ids=ids, id_key_name=id_key_name, id_maps=id_maps, save=False)
                 # Aggregate the data and append it to the lists
                 agg_data = row[cols_with_num_vals].agg(['mean'])
                 count = row.shape[0]
