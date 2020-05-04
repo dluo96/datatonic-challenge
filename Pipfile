@@ -15,6 +15,7 @@ matplotlib = "*"
 iso639 = "*"
 seaborn = "*"
 scikit-learn = "*"
+nbconvert = "*"
 
 [requires]
 python_version = "3.7"
