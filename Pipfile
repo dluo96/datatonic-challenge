@@ -16,6 +16,7 @@ iso639 = "*"
 seaborn = "*"
 scikit-learn = "*"
 nbconvert = "*"
+tqdm = "*"
 
 [requires]
 python_version = "3.7"
