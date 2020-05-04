@@ -2,6 +2,7 @@
 import json
 import pandas as pd
 import os
+from tqdm import tqdm
 
 def retrieve_category(df, column_name, ids, id_key_name, id_maps=None, save=False, save_dir=''):
 	"""Retrieve different categories from a specific column.
@@ -190,3 +191,52 @@ def get_path_to_plot_dir():
 	dir_list.append('')
 	
 	return '/' + os.path.join(*dir_list)
+
+
+def get_averages_for_columns(df, id_maps, id_key_name, column_name, save=False, save_dir=''):
+        """Generates the average values on the categories in the columns.
+
+        Args:
+                df: the dataframe
+                id_maps: collection of maps from ids to category for different columns
+                id_key_name: the actual key to the ids. e.g. 'id', 'crew_id', 'cast_id'
+                column_name: name of the column to query. e.g. genres
+                save: if True it will save the file to the data/pre-processed directory.
+		save_dir: location to save the generated DataFrame.
+
+        Returns:
+                Dataframe aggregated by the chosen column.
+
+        """
+        appearances = []
+        cols_with_num_vals = ['budget', 'popularity', 'revenue', 'runtime', 'vote_average', 'vote_count']
+        prod_comp_avgs = {}
+        for col in cols_with_num_vals:
+                prod_comp_avgs[col] = []
+
+        for ids in tqdm(id_maps[column_name].keys()):
+        # Retrieve rows for a certain production companies
+                if ids.isdigit():
+                    ids = int(ids)
+                row = retrieve_category(df=df, column_name=column_name, ids=ids, id_key_name=id_key_name, id_maps=id_maps, save=False)
+                # Aggregate the data and append it to the lists
+                agg_data = row[cols_with_num_vals].agg(['mean'])
+                count = row.shape[0]
+                for col in cols_with_num_vals:
+                    prod_comp_avgs[col].append(agg_data[col]['mean'])
+                appearances.append(count)
+
+        data = {'id': list(id_maps[column_name].values())}
+
+        for col in cols_with_num_vals:
+                data[col] = prod_comp_avgs[col]
+        data['appearances'] = appearances
+
+        result = pd.DataFrame.from_dict(data)
+        if save:
+                result.to_pickle(save_dir + 'movie_' + column_name +'_summary.pkl')
+    
+        return result
+
+
+
