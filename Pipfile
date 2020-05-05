@@ -16,6 +16,7 @@ iso639 = "*"
 seaborn = "*"
 scikit-learn = "*"
 tqdm = "*"
+xgboost = "*"
 
 [requires]
 python_version = "3.7"
