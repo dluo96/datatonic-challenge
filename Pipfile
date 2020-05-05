@@ -16,6 +16,7 @@ iso639 = "*"
 seaborn = "*"
 scikit-learn = "*"
 tqdm = "*"
+tensorflow = "*"
 xgboost = "*"
 
 [requires]
