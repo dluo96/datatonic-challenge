@@ -1,0 +1,17 @@
+{
+	"pre-processing": [
+		"removing_outliers_and_null_values",
+		"strings_to_dicts"
+	],
+	"feature-engineering": [
+		"one_hot_encoding",
+		"adjusting-revenue-variable"
+	],
+	"data-visualisation": [
+		"production_company_analysis",
+		"some_aggregation_and_trends"
+	],
+	"basic-modelling": [
+		"OLS_regression_and_correlations"
+	]
+}
