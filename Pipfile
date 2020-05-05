@@ -17,6 +17,7 @@ seaborn = "*"
 scikit-learn = "*"
 nbconvert = "*"
 tqdm = "*"
+xgboost = "*"
 
 [requires]
 python_version = "3.7"
