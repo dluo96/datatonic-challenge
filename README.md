@@ -1,18 +1,29 @@
-# datatonic-challenge
+# An analysis of the TMDB movies
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dluo96/datatonic-challenge/blob/master/DatatonicChallenge.ipynb)
+Analysis and model prediction of movie revenue using the [TMDB 5000 Movie Dataset](https://www.kaggle.com/tmdb/tmdb-movie-metadata/data).
 
-To run our repository:
+## Setup
 
-Clone our code locally:
-`git clone https://github.com/dluo96/datatonic-challenge.git` 
+- install pipenv if not installed yet: `pip install pipenv`
+- navigate to repo and run command:
+```
+pipenv install
+pipenv shell
+```
 
-navigate to repo and run command:
+## Usage
 
-`pipenv shell`
+### Executing all notebooks at once
+```
+python run.py
+```
+### Executing notebooks in a certain folder
+```
+python run.py (folder_name)
+```
+## Development
 
-then run jupyter from local host using:
-
-`jupyter notebook \ --NotebookApp.allow_origin='https://colab.research.google.com' \ --port=8888 \ --NotebookApp.port_retries=0`
-
-Play with code either in Jupyter or Colab!
+Run jupyter from local host using:
+```
+jupyter notebook \ --NotebookApp.allow_origin='https://colab.research.google.com' \ --port=8888 \ --NotebookApp.port_retries=0
+```
